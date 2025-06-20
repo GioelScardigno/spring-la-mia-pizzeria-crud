@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="~{fragments/head :: head('Pizzas')}" />
+
+<body>
+
+
+    <!-- header -->
+    <header>
+
+        <section th:replace="~{fragments/navbar :: navbar}" />
+
+    </header>
+
+
+    <!-- main -->
+    <main class="container">
+        <section class="title row">
+            <div class="col-12">
+                <h1 class="text-center">
+                    Pizzas
+                </h1>
+            </div>
+        </section>
+
+        <section class="search-bar row justify-content-center">
+            <form th:action="@{/pizzas}" method="GET" class="col-6">
+                <div class="input-group">
+                    <input type="search" name="keyword" id="pizza-search-input" class="form-control">
+                    <button class="btn btn-primary btn-lg" type="submit">Filter</button>
+                </div>
+            </form>
+
+        </section>
+
+        <section class="pizzas">
+            <table class="table table-hover" th:if="${pizzas.size() > 0}">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="pizza : ${pizzas}" th:object="${pizza}">
+                        <td>[[*{id}]]</td>
+                        <td>[[*{name}]]</td>
+                        <td>[[*{description}]]</td>
+                        <td>[[*{price}]]</td>
+                        <td>
+                            <a th:href="@{|/pizzas/*{id}|}" class="btn btn-primary btn-sm">More details</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 class="text-center text-primary" th:unless="${pizzas.size() > 0}">
+
+                there are no pizzas available at this time
+
+            </h2>
+
+        </section>
+    </main>
+
+
+    <!-- footer -->
+    <footer>
+
+
+    </footer>
+
+
+    <script th:replace="~{fragments/popper :: popper}" />
+</body>
+
+</html>
