@@ -25,12 +25,16 @@
         </section>
 
         <section class="search-bar row justify-content-center">
-            <form th:action="@{/pizzas}" method="GET" class="col-6">
+            <form th:action="@{/pizzas}" method="GET" class="col-8 d-insline">
                 <div class="input-group">
                     <input type="search" name="keyword" id="pizza-search-input" class="form-control">
-                    <button class="btn btn-primary btn-lg" type="submit">Filter</button>
+                    <button class="btn btn-secondary btn-lg" type="submit">Filter</button>
                 </div>
             </form>
+
+            <div class="buttons col-2">
+                <a th:href="@{/pizzas/create}" class="btn btn-primary btn-lg ">Add new Pizza</a>
+            </div>
 
         </section>
 
@@ -52,15 +56,17 @@
                         <td>[[*{description}]]</td>
                         <td>[[*{price}]]</td>
                         <td>
-                            <a th:href="@{|/pizzas/*{id}|}" class="btn btn-primary btn-sm">More details</a>
+                            <a th:href="@{|/pizzas/*{id}|}" class="btn btn-success btn-sm ">More details</a>
+                            <a th:href="@{|/pizzas/*{id}|}" class="btn btn-primary btn-sm ">Edit</a>
+                            <a th:href="@{|/pizzas/*{id}|}" class="btn btn-warning btn-sm ">Delete</a>
                         </td>
                     </tr>
                 </tbody>
             </table>
 
-            <h2 class="text-center text-primary" th:unless="${pizzas.size() > 0}">
+            <h2 th:unless="${pizzas.size() > 0}">
 
-                there are no pizzas available at this time
+                <h1 class="text-center text-danger">there are no pizzas available at this time</h1>
 
             </h2>
 

@@ -8,10 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/pizzas")
@@ -31,7 +36,7 @@ public class PizzaController {
 
         } else {
 
-           pizzas = pizzaRepository.findAll(Sort.by("price"));;
+           pizzas = pizzaRepository.findAll();
 
         }
 
@@ -49,4 +54,27 @@ public class PizzaController {
 
     }
 
+    @GetMapping("/create")
+    public String create(Model model){
+
+        model.addAttribute("pizza", new Pizza());
+
+        return "pizzas/create";
+
+    }
+
+    @PostMapping("/create")
+    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult ,Model model){
+
+        if (bindingResult.hasErrors()) {
+            
+            return "pizzas/create";
+
+        }
+ 
+        pizzaRepository.save(formPizza);
+
+        return "redirect:/pizzas";
+
+    }
 }
