@@ -20,7 +20,7 @@
         <section class="title row">
             <div class="col-12">
                 <h1 class="text-center">
-                    Adding a new pizza to the database
+                    Editing [[${pizza.name}]]
                 </h1>
             </div>
         </section>
@@ -38,7 +38,7 @@
 
 
             <div class="col-12">
-                <form th:action="@{/pizzas/create}" method="POST" th:object="${pizza}" id="pizza-creation-form">
+                <form th:action="@{/pizzas/edit/{id}(id=${pizza.id})}" method="POST" th:object="${pizza}" id="pizza-creation-form">
 
 
                     <!-- form fields -->
@@ -87,7 +87,7 @@
 
                     <!-- form buttons -->
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-success">Create new pizza</button>
+                        <button type="submit" class="btn btn-success">Update pizza</button>
                         <a th:href="@{/pizzas}" class="btn btn-danger">Go back</a>
                     </div>
                 </form>
